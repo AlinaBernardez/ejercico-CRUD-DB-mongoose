@@ -17,7 +17,8 @@ router.post("/create", async(req, res) => {
 router.get('/', async(req, res) => {
     try {
         const allTasks = await Task.find({})
-        return res.status(200).send({ message: 'Task deleted!', allTasks })
+        if(!allTasks) return res.status(400).send({ message: 'No tasks found!'})
+        return res.status(200).send({ message: 'Tasks:', allTasks })
     } catch (error) {
         console.log(error)
         res.status(500).send({ message: 'There was a problem searching for your tasks' })
@@ -37,7 +38,7 @@ router.get('/id/:_id', async(req, res) => {
 
 router.put('/markAsCompleted/:_id', async(req, res) => {
     try {
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, {completed: true})
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, {completed: true}, {new: true})
         if(!updatedTask) return res.status(404).json({ message: 'No such Task found!'})
         return res.json(updatedTask)
     } catch (error) {
@@ -48,8 +49,8 @@ router.put('/markAsCompleted/:_id', async(req, res) => {
 
 router.put('/id/:_id', async(req, res) => {
     try {
-        const updateObject = req.body
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, updateObject)
+        const { title } = req.body
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, title)
         if(!updatedTask) return res.status(404).json({ message: 'No such Task found!'})
         return res.json(updatedTask)
     } catch (error) {
