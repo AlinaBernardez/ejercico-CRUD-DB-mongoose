@@ -6,12 +6,12 @@ module.exports = {
                 properties:{
                     _id:{
                         type:'objectId',
-                        description:"task identification number",
+                        description:"Task identification number",
                         example:"6201064b0028de7866e2b2c4"
                     },
                     title:{
                         type:'string',
-                        description:"task to register",
+                        description:"Task to register",
                         example:"Task 1"
                     },
                     completed:{
