@@ -12,7 +12,7 @@ module.exports = {
                     content: {
                         "application/json": {
                             schema: {
-                            $ref: "#/components/schemas/Task",
+                            $ref: "#/components/schemas/TaskInput",
                             }
                         },
                     },
@@ -57,7 +57,7 @@ module.exports = {
                     name: "_id",
                     in: "path",
                     schema: {
-                        $ref: "#/components/schemas/Task",
+                        $ref: "#/components/schemas/ID",
                     },
                     description: "Id of Task to get",
                     },
@@ -67,8 +67,6 @@ module.exports = {
                     500: { description: "There was a problem searching for your task" },
                 },
             },
-        },
-        '/id/{_id}': {
             put: {
                 tags: {
                     Tasks: "Update task by ID",
@@ -80,7 +78,7 @@ module.exports = {
                     name: "_id",
                     in: "path",
                     schema: {
-                        $ref: "#/components/schemas/Task",
+                        $ref: "#/components/schemas/ID",
                     },
                     description: "Id of Task to update",
                     },
@@ -95,6 +93,27 @@ module.exports = {
                 responses: {
                     200: { description: 'Task updated' },
                     500: { description: "There was a problem updating your task" },
+                },
+            },
+            delete: {
+                tags: {
+                    Tasks: "Delete task by ID",
+                },
+                description: "Delete task by ID",
+                operationId: "deleteTaskById",
+                parameters: [
+                    {
+                    name: "_id",
+                    in: "path",
+                    schema: {
+                        $ref: "#/components/schemas/ID",
+                    },
+                    description: "Id of Task to delete",
+                    },
+                ],
+                responses: {
+                    200: { description: 'Task delted!' },
+                    500: { description: "There was a problem deleting your task" },
                 },
             },
         },
@@ -110,7 +129,7 @@ module.exports = {
                     name: "_id",
                     in: "path",
                     schema: {
-                        $ref: "#/components/schemas/Task",
+                        $ref: "#/components/schemas/ID",
                     },
                     description: "Id of Task to update",
                     },
@@ -118,7 +137,7 @@ module.exports = {
             requestBody: {
                 content: {
                     "application/json": {
-                        schema: { $ref: "#/components/schemas/Task" },
+                        schema: { $ref: "#/components/schemas/TaskInput" },
                     },
                 },
             },
@@ -127,30 +146,7 @@ module.exports = {
                     500: { description: "There was a problem updating your task" },
                 },
             },
-        },
-        '/id/{_id}': {
-            delete: {
-                tags: {
-                    Tasks: "Delete task by ID",
-                },
-                description: "Delete task by ID",
-                operationId: "deleteTaskById",
-                parameters: [
-                    {
-                    name: "_id",
-                    in: "path",
-                    schema: {
-                        $ref: "#/components/schemas/Task",
-                    },
-                    description: "Id of Task to delete",
-                    },
-                ],
-                responses: {
-                    200: { description: 'Task delted!' },
-                    500: { description: "There was a problem deleting your task" },
-                },
-            },
-        },
+        }
     },
 };
 
